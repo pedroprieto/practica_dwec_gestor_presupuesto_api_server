@@ -1,0 +1,26 @@
+{
+    "name": "practica_dwec_api_server",
+    "version": "1.0.0",
+    "description": "API para almacenar datos de aplicación de DWEC (gestión de presupuesto)",
+    "main": "index.js",
+    "config": {
+        "tableName": "gestionPresupuestoDatabase",
+        "region": "eu-west-1"
+    },
+    "scripts": {
+        "deployLambda": "claudia create --region $npm_package_config_region --api-module index --policies policy.json --set-env TABLE_NAME=$npm_package_config_tableName",
+        "destroyLambda": "claudia destroy",
+        "updateLambda": "claudia update",
+        "createTable": "./create_table.sh $npm_package_config_tableName",
+        "destroyTable": "./delete_table.sh $npm_package_config_tableName",
+        "deployApp": "npm run createTable && npm run deployLambda",
+        "destroyApp": "npm run destroyLambda & npm run destroyTable",
+        "test": "npm test"
+    },
+    "author": "Pedro Prieto",
+    "license": "GPL-v3",
+    "dependencies": {
+        "aws-sdk": "^2.1046.0",
+        "claudia-api-builder": "^4.1.2"
+    }
+}
