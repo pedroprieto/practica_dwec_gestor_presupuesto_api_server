@@ -1,6 +1,7 @@
 const ApiBuilder = require('claudia-api-builder'),
       querystring = require('querystring'),
-      AWS = require('aws-sdk');
+      AWS = require('aws-sdk'),
+      { v4: uuidv4 } = require('uuid');
 
 var api = new ApiBuilder(),
     dynamoDb = new AWS.DynamoDB.DocumentClient();
@@ -42,6 +43,8 @@ api.post('/{usuario}', function (request) {
     var data = request.body;
     var usuarioNombre = querystring.unescape(request.pathParams.usuario);
     data.usuario = usuarioNombre;
+    // Generar UUID
+    data.gastoId = uuidv4();
     var params = {
         TableName: tableName,
         Item: data
@@ -53,7 +56,7 @@ api.post('/{usuario}', function (request) {
 // Gasto de un usuario (GET)
 api.get('/{usuario}/{gastoId}', function (request) {
     var usuarioNombre = querystring.unescape(request.pathParams.usuario);
-    var gastoId = parseInt(querystring.unescape(request.pathParams.gastoId));
+    var gastoId = querystring.unescape(request.pathParams.gastoId);
     return mostrarGastos(usuarioNombre, gastoId).then(items => {
         return (items.length>0) ? items[0] : {};
     });
@@ -64,7 +67,7 @@ api.get('/{usuario}/{gastoId}', function (request) {
 api.put('/{usuario}/{gastoId}', function (request) {
     var data = request.body;
     var usuarioNombre = querystring.unescape(request.pathParams.usuario);
-    var gastoId = parseInt(querystring.unescape(request.pathParams.gastoId));
+    var gastoId = querystring.unescape(request.pathParams.gastoId);
     data.usuario = usuarioNombre;
     data.gastoId = gastoId;
     var params = {
@@ -77,7 +80,7 @@ api.put('/{usuario}/{gastoId}', function (request) {
 // DELETE
 api.delete('/{usuario}/{gastoId}', function (request) {
     var usuarioNombre = querystring.unescape(request.pathParams.usuario);
-    var gastoId = parseInt(querystring.unescape(request.pathParams.gastoId));
+    var gastoId = querystring.unescape(request.pathParams.gastoId);
     var params = {
         TableName: tableName,
         Key: {
