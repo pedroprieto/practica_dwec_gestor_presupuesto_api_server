@@ -1,0 +1,22 @@
+* API para Gestión de Gastos
+  API de ejemplo para interactuar con el cliente desarrollado en https://github.com/pedroprieto/practica_dwec_gestor_presupuesto
+
+** Instalar
+   #+begin_src bash
+     npm install
+   #+end_src
+
+** Permisos AWS
+   - ~LambdaFullAccess~
+   - ~AmazonAPIGatewayAdministrator~
+   - ~IAMFullAccess~ 
+
+** Desplegar en AWS
+   #+begin_src bash
+     npm run deployApp
+   #+end_src
+
+** Borrar app de AWS
+   #+begin_src bash
+     npm run destroyApp
+   #+end_src
