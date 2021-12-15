@@ -86,9 +86,17 @@ api.delete('/{usuario}/{gastoId}', function (request) {
         Key: {
             usuario: usuarioNombre,
             gastoId: gastoId
-        }
+        },
+        ReturnValues: "ALL_OLD"
     }
-    return dynamoDb.delete(params).promise();
+    return dynamoDb.delete(params).promise().then(response => {
+        if (!response.Attributes) {
+            throw new Error("El elemento no existe");
+        }
+    });
+}, {
+    success: { code: 200 },
+    error: {code: 401}
 });
 
 
