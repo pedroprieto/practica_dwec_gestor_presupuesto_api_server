@@ -24,5 +24,8 @@
         "aws-sdk": "^2.1046.0",
         "claudia-api-builder": "^4.1.2",
         "uuid": "^8.3.2"
+    },
+    "devDependencies": {
+        "claudia": "^5.14.1"
     }
 }
