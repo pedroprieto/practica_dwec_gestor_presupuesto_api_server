@@ -11,6 +11,7 @@
         "deployLambda": "claudia create --region $npm_package_config_region --api-module index --policies policy.json --set-env TABLE_NAME=$npm_package_config_tableName",
         "destroyLambda": "claudia destroy",
         "updateLambda": "claudia update",
+        "pack": "claudia pack",
         "createTable": "./create_table.sh $npm_package_config_tableName",
         "destroyTable": "./delete_table.sh $npm_package_config_tableName",
         "deployApp": "npm run createTable && npm run deployLambda",
